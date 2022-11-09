@@ -39,8 +39,8 @@ function showAlert(al){
   document.getElementById(al).classList.add("show");
 }
 
-function hasValue(x){
-  if (x.value !== "" && +x.value){
+function hasValue(x, inclZero=false){
+  if (x.value !== "" && (+x.value || inclZero)){
     return true;
   }
   return false;
@@ -68,7 +68,7 @@ form.addEventListener("reset", function(e){
 form.addEventListener("change", function(e){
   btnReset.disabled = false;
   
-  if (hasValue(inCustomTip) || inCustomTip.value == "0")
+  if (hasValue(inCustomTip, true))
     showAlert("alert-customtip-custom");
   else hideAlerts("customtip");
   
@@ -86,7 +86,7 @@ form.addEventListener("change", function(e){
   if (hasValue(inBill) && hasValue(inPeople)){
     var q;
     
-    if (hasValue(inCustomTip) || inCustomTip.value == "0")
+    if (hasValue(inCustomTip, true))
       q = calculate(inBill.value,inCustomTip.value,inPeople.value);
     else if (hasValue(inTip)) q = calculate(inBill.value,inTip.value,inPeople.value);
     else q = calculate(inBill.value,0,inPeople.value);
